@@ -26,6 +26,7 @@ Route::group(['prefix' => 'tweet'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', 'TweetController@store');
         Route::delete('/{id}', 'TweetController@destroy');
+        Route::post('like/{id}', 'TweetController@like');
 
     });
 });

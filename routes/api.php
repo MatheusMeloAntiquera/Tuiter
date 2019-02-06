@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -11,21 +9,23 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+ */
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('signup','AuthController@signup');
+    Route::post('signup', 'AuthController@signup');
     Route::post('login', 'AuthController@login')->name('login');
 
-
     //Routes that need to use auth middleware
-    Route::group(['middleware' => 'auth:api'], function(){
-        Route::get('logout','AuthController@logout');
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+    });
+});
+
+Route::group(['prefix' => 'tweet'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('/', 'TweetController@store');
+        Route::delete('/{id}', 'TweetController@destroy');
+
     });
 });

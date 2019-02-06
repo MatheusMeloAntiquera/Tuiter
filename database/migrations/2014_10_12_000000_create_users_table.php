@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->date('birth_date');
-            $table->string('bio', 200);
+            $table->date('birth_date')->nullable();
+            $table->string('bio', 200)->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->engine = 'InnoDB';
